@@ -78,7 +78,7 @@ void eCAL_HaloSteeringWheel::ecal_runner()
 {
 
 	eCAL::protobuf::CPublisher<IAA::Halo::SteeringWheel::HALO_SteeringWheel_Status> pub_Status("HALO_SteeringWheel_Status");
-	pub_Status.SetRefFrequency(1.0, 3.0);
+	//pub_Status.SetRefFrequency(1.0, 3.0);
 	
 	eCAL::protobuf::CSubscriber<IAA::Halo::SteeringWheel::SetColor_Strip> sub_SetColor("Halo_SW_SetColor");
 	eCAL::protobuf::CSubscriber<IAA::Halo::SteeringWheel::Clear_Strip> sub_ClearStrip("Halo_SW_ClearStrip");
