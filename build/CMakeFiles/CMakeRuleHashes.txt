@@ -1,5 +1,0 @@
-# Hashes of file build rules.
-0312ba41e967e915a94997c53a85bfb0 protobuf/IAA_HaloSteeringWheel.pb.cc
-e5c069dff8b6de204ae5b8717af743e0 protobuf/animal.pb.cc
-ea130658f538674c3b28579fe4bf6c40 protobuf/house.pb.cc
-a5fda74dc60cbcaa2743bdbae4979d6e protobuf/person.pb.cc

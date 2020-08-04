@@ -1,7 +1,0 @@
-/home/pi/Lenkrad_tmp/build/CMakeFiles/install/strip.dir
-/home/pi/Lenkrad_tmp/build/CMakeFiles/edit_cache.dir
-/home/pi/Lenkrad_tmp/build/CMakeFiles/IAA_SteeringWheel.dir
-/home/pi/Lenkrad_tmp/build/CMakeFiles/install.dir
-/home/pi/Lenkrad_tmp/build/CMakeFiles/rebuild_cache.dir
-/home/pi/Lenkrad_tmp/build/CMakeFiles/list_install_components.dir
-/home/pi/Lenkrad_tmp/build/CMakeFiles/install/local.dir
