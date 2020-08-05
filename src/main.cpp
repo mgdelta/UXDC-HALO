@@ -26,12 +26,29 @@
 #include "ecalcomm.h"
 #include <boost/signals2.hpp>
 
+// this is just for testing, should be moved to file handling section later
 extern "C" {
     #define STB_IMAGE_IMPLEMENTATION
     #include "stb_image.h"
 }
+#include <vector>
 
 const unsigned int DEFAULT_LEDS = 144;
+
+
+// Loads as RGBA... even if file is only RGB
+// Feel free to adjust this if you so please, by changing the 4 to a 0.
+bool load_image(std::vector<unsigned char>& image, const std::string& filename, int& x, int&y)
+{
+    int n;
+    unsigned char* data = stbi_load(filename.c_str(), &x, &y, &n, 4);
+    if (data != nullptr)
+    {
+        image = std::vector<unsigned char>(data, data + x * y * 4);
+    }
+    stbi_image_free(data);
+    return (data != nullptr);
+}
 
 
 int main(int argc, char **argv)
