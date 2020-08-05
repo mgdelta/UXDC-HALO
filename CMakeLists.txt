@@ -42,6 +42,7 @@ message(STATUS "Generated Protos")
 message(STATUS "PROTO_SRC_FILES are: ${PROTO_SRC_FILES}")
 message(STATUS "PROTO_HDR_FILES are: ${PROTO_HDR_FILES}")
 message(STATUS "PROTO_INCL_DIR: ${PROTO_INCLUDE_DIRS}")
+
 message(STATUS "Boost Libraries: ${Boost_LIBRARIES}")
 message(STATUS "Boost Includedir: ${Boost_INCLUDE_DIRS}")
 
@@ -57,6 +58,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/src/ecalcomm.cpp
 target_include_directories(${PROJECT_NAME} PRIVATE 
 	${PROTO_INCLUDE_DIRS}/
 	${CMAKE_CURRENT_SOURCE_DIR}/include/
+	${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/stb
 #${Boost_INCLUDE_DIRS}
 )
 

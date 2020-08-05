@@ -26,6 +26,11 @@
 #include "ecalcomm.h"
 #include <boost/signals2.hpp>
 
+extern "C" {
+    #define STB_IMAGE_IMPLEMENTATION
+    #include "stb_image.h"
+}
+
 const unsigned int DEFAULT_LEDS = 144;
 
 
