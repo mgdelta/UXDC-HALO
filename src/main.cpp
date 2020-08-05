@@ -86,7 +86,20 @@ int main(int argc, char **argv)
 		strip.Halo_Strip_FadeOut(strip.Color(r,g,b),delay);
 	});
 
-
+// test section for png handling
+    std::string filename = "image.jpg";
+    
+    int width, height;
+    std::vector<unsigned char> image;
+    bool success = load_image(image, filename, width, height);
+    if (!success)
+    {
+        std::cout << "Error loading image\n";
+        return 1;
+    }
+    
+    std::cout << "Image width = " << width << '\n';
+    std::cout << "Image height = " << height << '\n';
 
 
 
