@@ -242,6 +242,8 @@ class Adafruit_DotStar {
   void		Halo_ClearAll();
   void 		Halo_Strip_FadeIn(const uint32_t color, const uint8_t target_brightness, const unsigned int fadetime_ms = 0); //fades from brightness 0 to target_brightness
   void		Halo_Strip_FadeOut(const uint32_t color, const unsigned int fadetime_ms = 0);
+  
+  void 		Halo_setStripColor() ;
 };
 
 #endif // _ADAFRUIT_DOT_STAR_H_

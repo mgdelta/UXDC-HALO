@@ -702,3 +702,28 @@ void Adafruit_DotStar::Halo_Strip_FadeOut(const uint32_t color, const unsigned i
 	}
 }
 
+void Adafruit_DotStar::Halo_setStripColor() {
+  //if(n < numLEDs)
+    uint8_t *p = &pixels[0]; //pointer auf pixelbuffer auf Anfang des Buffers
+    int n = 0;
+    for(int i=0; i < numLEDs; i++) //über alle LEDs gehen
+    {
+		//p[(i*3) + rOffset] = 0;
+		if ( (n%2) == 0) {
+			p[(i*3) + gOffset] = 255;
+			p[(i*3) + rOffset] = 0;
+		}
+		else {
+			p[(i*3) + gOffset] = 0;
+			p[(i*3) + rOffset] = 255;
+		}
+		//p[(i*3) + gOffset] = 255;
+		p[(i*3) + bOffset] = 0;
+		n = n+1;
+	}
+	show();
+  //  p[rOffset] = (uint8_t)(c >> 16);
+  //  p[gOffset] = (uint8_t)(c >>  8);
+  //  p[bOffset] = (uint8_t)c;
+  //}
+}

@@ -33,7 +33,7 @@ extern "C" {
 }
 #include <vector>
 
-const unsigned int DEFAULT_LEDS = 144;
+const unsigned int DEFAULT_LEDS = 196;//144;
 
 
 // Loads as RGBA... even if file is only RGB
@@ -41,10 +41,11 @@ const unsigned int DEFAULT_LEDS = 144;
 bool load_image(std::vector<unsigned char>& image, const std::string& filename, int& x, int&y)
 {
     int n;
-    unsigned char* data = stbi_load(filename.c_str(), &x, &y, &n, 4);
+    unsigned char* data = stbi_load(filename.c_str(), &x, &y, &n, 3);
+    std::cout << "Channels found: " << n << std::endl;
     if (data != nullptr)
     {
-        image = std::vector<unsigned char>(data, data + x * y * 4);
+        image = std::vector<unsigned char>(data, data + x * y * 3);
     }
     stbi_image_free(data);
     return (data != nullptr);
@@ -87,7 +88,7 @@ int main(int argc, char **argv)
 	});
 
 // test section for png handling
-    std::string filename = "image.jpg";
+    std::string filename = "196 Alicia Welcome_mg.bmp";
     
     int width, height;
     std::vector<unsigned char> image;
@@ -100,14 +101,35 @@ int main(int argc, char **argv)
     
     std::cout << "Image width = " << width << '\n';
     std::cout << "Image height = " << height << '\n';
+    
+    const size_t RGBA = 3;
 
+    
+    int x = 98;
+    int y = 1;
+    size_t index = RGBA * (y * width + x);
+    std::cout << "RGBA pixel @ (x=3, y=4): " 
+              << static_cast<int>(image[index + 0]) << " "
+              << static_cast<int>(image[index + 1]) << " "
+              << static_cast<int>(image[index + 2]) << " "
+              << static_cast<int>(image[index + 3]) << '\n';
+     /*         
+    for (int i = 0; i<(4*width*height); i++)
+    {
+		std::cout << +image[index +i] << " ";
+	}
+*/
+std::vector<unsigned char> &pxdata = image;
+
+
+	strip.Halo_setStripColor();
 
 
   // enter main loop
 	while(1)
 	{
-	strip.fill(strip.Color(50,0,0),0,72);	
-	strip.show();
+	//strip.fill(strip.Color(50,0,0),0,72);	
+	//strip.show();
      //sleep 1000 ms
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 //
