@@ -53,6 +53,9 @@ for x in range(256):
 //typedef unsigned char uint8_t;
 //typedef unsigned int uint16_t;
 
+
+#include <vector>
+
 static const uint8_t _DotStarSineTable[256] = {
   128,131,134,137,140,143,146,149,152,155,158,162,165,167,170,173,
   176,179,182,185,188,190,193,196,198,201,203,206,208,211,213,215,
@@ -243,7 +246,8 @@ class Adafruit_DotStar {
   void 		Halo_Strip_FadeIn(const uint32_t color, const uint8_t target_brightness, const unsigned int fadetime_ms = 0); //fades from brightness 0 to target_brightness
   void		Halo_Strip_FadeOut(const uint32_t color, const unsigned int fadetime_ms = 0);
   
-  void 		Halo_setStripColor() ;
+  void 		Halo_setStripColor();
+  void 		Halo_setStripColor(std::vector<unsigned char> &bilddaten);
 };
 
 #endif // _ADAFRUIT_DOT_STAR_H_

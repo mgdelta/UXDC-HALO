@@ -119,11 +119,22 @@ int main(int argc, char **argv)
 		std::cout << +image[index +i] << " ";
 	}
 */
-std::vector<unsigned char> &pxdata = image;
+	
+
+	std::vector<unsigned char> &pxdata = image;
 
 
-	strip.Halo_setStripColor();
 
+auto startzeit = std::chrono::steady_clock::now();
+//	strip.Halo_setStripColor();
+strip.Halo_setStripColor(image);
+auto stopzeit = std::chrono::steady_clock::now();
+auto dauer = std::chrono::duration_cast<std::chrono::milliseconds>(stopzeit - startzeit).count();
+std::cout << "Elapsed time for 46 frames: " << dauer << "ms"<< std::endl;
+std::cout << "Elapsed time should be: " << (49*(1000/60)) << "ms\n";
+std::cout << "Actual frametime: " << (dauer/49) << "ms\n";
+std::cout << "Estimated frametime: " << (1000/60) << "ms\n";
+std::cout << "actual fps: " << (1000/(dauer/49)) << "\n";
 
   // enter main loop
 	while(1)

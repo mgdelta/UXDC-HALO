@@ -727,3 +727,75 @@ void Adafruit_DotStar::Halo_setStripColor() {
   //  p[bOffset] = (uint8_t)c;
   //}
 }
+
+void Adafruit_DotStar::Halo_setStripColor(std::vector<unsigned char> &bilddaten)
+{
+	  //if(n < numLEDs)
+    uint8_t *p = &pixels[0]; //pointer auf pixelbuffer auf Anfang des Buffers
+/*    
+    int x = 98; // 0..195
+    int reihew = 1;
+    size_t index = 3 * (reihew * 196 + x);
+std::cout << "RGBA pixel aus Funktion @ (x=3, y=4): " 
+              << static_cast<int>(bilddaten[index + 0]) << " "
+              << static_cast<int>(bilddaten[index + 1]) << " "
+              << static_cast<int>(bilddaten[index + 2]) << " "
+              << static_cast<int>(bilddaten[index + 3]) << '\n';  
+              
+	// some checks
+	std::cout << "Ist Pixelvektor leer: " << bilddaten.empty() << std::endl;
+	std::cout << "Pixelvector size: " << bilddaten.size() << std::endl;
+std::cout << "Pixelvector size should be: " << (196*49*3) << std::endl;
+std::cout << "Pixelvector capacity: " << bilddaten.capacity() << std::endl;
+  */            
+              // über alle reihen hinweg, prototyp
+    for (int reihe = 0; reihe < 49 ; reihe++)
+    {          
+              // für eine reihe, prototyp
+     //                 std::cout << "Reihe:  " << reihe << "\n";    
+    for (int spalte = 0; spalte < 196; spalte++)
+    {
+		size_t index = 3 * (reihe * 196 + spalte);
+	//	std::cout << spalte <<": (" 
+    //          << static_cast<int>(bilddaten[index + 0]) << ","
+    //          << static_cast<int>(bilddaten[index + 1]) << ","
+    //          << static_cast<int>(bilddaten[index + 2]) << ")\n";
+  
+		p[(spalte*3) + rOffset] = static_cast<int>(bilddaten[index + 0]);
+		p[(spalte*3) + gOffset] = static_cast<int>(bilddaten[index + 1]);
+		p[(spalte*3) + bOffset] = static_cast<int>(bilddaten[index + 2]);
+		
+	}
+	  show();
+	  			std::this_thread::sleep_for(std::chrono::milliseconds(4));
+
+	 } 
+	  
+	  
+	  
+	  
+   /*
+    int n = 0;
+    for(int i=0; i < numLEDs; i++) //über alle LEDs gehen
+    {
+		//p[(i*3) + rOffset] = 0;
+		if ( (n%2) == 0) {
+			p[(i*3) + gOffset] = 255;
+			p[(i*3) + rOffset] = 0;
+		}
+		else {
+			p[(i*3) + gOffset] = 0;
+			p[(i*3) + rOffset] = 255;
+		}
+		//p[(i*3) + gOffset] = 255;
+		p[(i*3) + bOffset] = 0;
+		n = n+1;
+	}
+	show();
+
+*/
+  //  p[rOffset] = (uint8_t)(c >> 16);
+  //  p[gOffset] = (uint8_t)(c >>  8);
+  //  p[bOffset] = (uint8_t)c;
+  //}
+}
