@@ -247,7 +247,7 @@ class Adafruit_DotStar {
   void		Halo_Strip_FadeOut(const uint32_t color, const unsigned int fadetime_ms = 0);
   
   void 		Halo_setStripColor();
-  void 		Halo_setStripColor(std::vector<unsigned char> &bilddaten);
+  void 		Halo_setStripColor(std::vector<unsigned char> &bilddaten, unsigned char image_height, unsigned char image_width);
 };
 
 #endif // _ADAFRUIT_DOT_STAR_H_

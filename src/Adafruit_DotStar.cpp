@@ -728,10 +728,17 @@ void Adafruit_DotStar::Halo_setStripColor() {
   //}
 }
 
-void Adafruit_DotStar::Halo_setStripColor(std::vector<unsigned char> &bilddaten)
+void Adafruit_DotStar::Halo_setStripColor(std::vector<unsigned char> &bilddaten, unsigned char image_height, unsigned char image_width)
 {
-	  //if(n < numLEDs)
-    uint8_t *p = &pixels[0]; //pointer auf pixelbuffer auf Anfang des Buffers
+	// First check if the image has more LEDs value in a row than allowed
+	// Aborting in this case
+	if (image_width > numLEDs ) 
+	{
+		std::cout << "Error playing animation: image width > maximum LED in a row!" << std::endl;
+		return;
+	}
+
+    uint8_t *p = &pixels[0]; // pointer to pixel array buffer for direct manipulation
 /*    
     int x = 98; // 0..195
     int reihew = 1;
@@ -749,10 +756,10 @@ std::cout << "Pixelvector size should be: " << (196*49*3) << std::endl;
 std::cout << "Pixelvector capacity: " << bilddaten.capacity() << std::endl;
   */            
               // über alle reihen hinweg, prototyp
-    for (int reihe = 0; reihe < 49 ; reihe++)
+    for (int reihe = 0; reihe < image_height ; reihe++) //49
     {          
               // für eine reihe, prototyp
-     //                 std::cout << "Reihe:  " << reihe << "\n";    
+           //           std::cout << "Reihe:  " << reihe << "\n";    
     for (int spalte = 0; spalte < 196; spalte++)
     {
 		size_t index = 3 * (reihe * 196 + spalte);
@@ -767,11 +774,12 @@ std::cout << "Pixelvector capacity: " << bilddaten.capacity() << std::endl;
 		
 	}
 	  show();
-	  			std::this_thread::sleep_for(std::chrono::milliseconds(4));
+	  			std::this_thread::sleep_for(std::chrono::milliseconds(16));
 
 	 } 
 	  
-	  
+	  clear();
+	  show();
 	  
 	  
    /*
