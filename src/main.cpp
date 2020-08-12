@@ -128,7 +128,7 @@ int main(int argc, char **argv)
 
 auto startzeit = std::chrono::steady_clock::now();
 //	strip.Halo_setStripColor();
-strip.Halo_setStripColor(image,height,width);
+strip.Halo_PlayAnimation(image,height,width);
 auto stopzeit = std::chrono::steady_clock::now();
 auto dauer = std::chrono::duration_cast<std::chrono::milliseconds>(stopzeit - startzeit).count();
 std::cout << "Elapsed time for 46 frames: " << dauer << "ms"<< std::endl;
@@ -145,7 +145,7 @@ std::cout << "actual fps: " << (1000/(dauer/height)) << "\n";
 	//strip.fill(strip.Color(50,0,0),0,72);	
 	//strip.show();
      //sleep 1000 ms
-     strip.Halo_setStripColor(image,height,width);
+     strip.Halo_PlayAnimation(image,height,width);
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 //
 //	strip.fill(strip.Color(0,50,0),0,72);	

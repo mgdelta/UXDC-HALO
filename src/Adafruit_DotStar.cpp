@@ -728,7 +728,7 @@ void Adafruit_DotStar::Halo_setStripColor() {
   //}
 }
 
-void Adafruit_DotStar::Halo_setStripColor(std::vector<unsigned char> &bilddaten, unsigned char image_height, unsigned char image_width)
+void Adafruit_DotStar::Halo_PlayAnimation(std::vector<unsigned char> &animation_buffer, unsigned char image_height, unsigned char image_width)
 {
 	// First check if the image has more LEDs value in a row than allowed
 	// Aborting in this case
@@ -738,72 +738,48 @@ void Adafruit_DotStar::Halo_setStripColor(std::vector<unsigned char> &bilddaten,
 		return;
 	}
 
-    uint8_t *p = &pixels[0]; // pointer to pixel array buffer for direct manipulation
+	// parameter for delay after each animation line to adjust speed (target FPS), maybe as parameter in the future
+	const unsigned int line_delay_ms = 4;
+	
+	// pointer to pixel array buffer for direct manipulation	
+    uint8_t *p = &pixels[0]; 
+    
 /*    
-    int x = 98; // 0..195
-    int reihew = 1;
-    size_t index = 3 * (reihew * 196 + x);
-std::cout << "RGBA pixel aus Funktion @ (x=3, y=4): " 
-              << static_cast<int>(bilddaten[index + 0]) << " "
-              << static_cast<int>(bilddaten[index + 1]) << " "
-              << static_cast<int>(bilddaten[index + 2]) << " "
-              << static_cast<int>(bilddaten[index + 3]) << '\n';  
-              
 	// some checks
 	std::cout << "Ist Pixelvektor leer: " << bilddaten.empty() << std::endl;
 	std::cout << "Pixelvector size: " << bilddaten.size() << std::endl;
-std::cout << "Pixelvector size should be: " << (196*49*3) << std::endl;
-std::cout << "Pixelvector capacity: " << bilddaten.capacity() << std::endl;
-  */            
-              // über alle reihen hinweg, prototyp
-    for (int reihe = 0; reihe < image_height ; reihe++) //49
-    {          
-              // für eine reihe, prototyp
-           //           std::cout << "Reihe:  " << reihe << "\n";    
-    for (int spalte = 0; spalte < 196; spalte++)
-    {
-		size_t index = 3 * (reihe * 196 + spalte);
-	//	std::cout << spalte <<": (" 
-    //          << static_cast<int>(bilddaten[index + 0]) << ","
-    //          << static_cast<int>(bilddaten[index + 1]) << ","
-    //          << static_cast<int>(bilddaten[index + 2]) << ")\n";
+	std::cout << "Pixelvector size should be: " << (196*49*3) << std::endl;
+	std::cout << "Pixelvector capacity: " << bilddaten.capacity() << std::endl;
+*/            
   
-		p[(spalte*3) + rOffset] = static_cast<int>(bilddaten[index + 0]);
-		p[(spalte*3) + gOffset] = static_cast<int>(bilddaten[index + 1]);
-		p[(spalte*3) + bOffset] = static_cast<int>(bilddaten[index + 2]);
+	// Writing pixel by pixel and line by line into pixel buffer, show each line on LED strip
+    for (int animation_line = 0; animation_line < image_height ; animation_line++)
+    {          
+		// std::cout << "Reihe:  " << reihe << "\n";    
+		for (int pixel_no = 0; pixel_no < numLEDs; pixel_no++)
+		{
+			// index to RGB triple inside pixel buffer array
+			size_t index = 3 * (animation_line * numLEDs + pixel_no);		
+			// std::cout << spalte <<": (" 
+			//           << static_cast<int>(bilddaten[index + 0]) << ","
+			//           << static_cast<int>(bilddaten[index + 1]) << ","
+			//           << static_cast<int>(bilddaten[index + 2]) << ")\n";
+  
+			// copy RGB values into pixel buffer arrays position
+			p[(pixel_no*3) + rOffset] = static_cast<int>(animation_buffer[index + 0]);
+			p[(pixel_no*3) + gOffset] = static_cast<int>(animation_buffer[index + 1]);
+			p[(pixel_no*3) + bOffset] = static_cast<int>(animation_buffer[index + 2]);	
+		}
+		// show new animation line on LED
+		show();
 		
-	}
-	  show();
-	  			std::this_thread::sleep_for(std::chrono::milliseconds(16));
-
-	 } 
-	  
-	  clear();
-	  show();
-	  
-	  
-   /*
-    int n = 0;
-    for(int i=0; i < numLEDs; i++) //über alle LEDs gehen
-    {
-		//p[(i*3) + rOffset] = 0;
-		if ( (n%2) == 0) {
-			p[(i*3) + gOffset] = 255;
-			p[(i*3) + rOffset] = 0;
-		}
-		else {
-			p[(i*3) + gOffset] = 0;
-			p[(i*3) + rOffset] = 255;
-		}
-		//p[(i*3) + gOffset] = 255;
-		p[(i*3) + bOffset] = 0;
-		n = n+1;
-	}
+		// adjust replay speed a little bit by doing a short break in this loop
+		// keep in mind, we are on a scheduling OS and not on a real time machine
+		// accurate replay speed cannot be achieved
+	  	std::this_thread::sleep_for(std::chrono::milliseconds(line_delay_ms));
+	} 
+	
+	// replay of animation done, clear the content of the LED stripe 
+	clear();
 	show();
-
-*/
-  //  p[rOffset] = (uint8_t)(c >> 16);
-  //  p[gOffset] = (uint8_t)(c >>  8);
-  //  p[bOffset] = (uint8_t)c;
-  //}
 }
