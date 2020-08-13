@@ -87,7 +87,7 @@ int main(int argc, char **argv)
 		strip.Halo_Strip_FadeOut(strip.Color(r,g,b),delay);
 	});
 
-// test section for png handling
+// test section for animation file handling
 	std::string file_alicia_child = "196 Alicia_child left behind.bmp";
     std::string file_alicia_bye = "196 Alicia Exit.bmp";
     std::string file_alicia_welcome = "196 Alicia Welcome.bmp";
@@ -98,46 +98,17 @@ int main(int argc, char **argv)
 	std::vector<unsigned char> animation_alicia_bye;
 	std::vector<unsigned char> animation_andrew_welcome;
 	std::vector<unsigned char> animation_andrew_bye;
- /*   
-    int width, height;
-    std::vector<unsigned char> image;
-    bool success = load_image(image, filename, width, height);
-    if (!success)
-    {
-        std::cout << "Error loading image\n";
-        return 1;
-    }
-*/    
-    //std::cout << "Image width = " << width << '\n';
-    //std::cout << "Image height = " << height << '\n';
-/*    
-    const size_t RGBA = 3;
 
-    
-    int x = 98;
-    int y = 1;
-    size_t index = RGBA * (y * width + x);
-    std::cout << "RGBA pixel @ (x=3, y=4): " 
-              << static_cast<int>(image[index + 0]) << " "
-              << static_cast<int>(image[index + 1]) << " "
-              << static_cast<int>(image[index + 2]) << " "
-              << static_cast<int>(image[index + 3]) << '\n';
-*/
-	
-
-	//std::vector<unsigned char> &pxdata = image;
-
-
-/*
-auto startzeit = std::chrono::steady_clock::now();
-strip.Halo_PlayAnimation(image,height,width);
-auto stopzeit = std::chrono::steady_clock::now();
-auto dauer = std::chrono::duration_cast<std::chrono::milliseconds>(stopzeit - startzeit).count();
-std::cout << "Elapsed time for 46 frames: " << dauer << "ms"<< std::endl;
-std::cout << "Elapsed time should be: " << (height*(1000/60)) << "ms\n"; //49
-std::cout << "Actual frametime: " << (dauer/height) << "ms\n";
-std::cout << "Estimated frametime: " << (1000/60) << "ms\n";
-std::cout << "actual fps: " << (1000/(dauer/height)) << "\n";
+/* 
+	auto startzeit = std::chrono::steady_clock::now();
+		strip.Halo_PlayAnimation(image,height,width);
+	auto stopzeit = std::chrono::steady_clock::now();
+	auto dauer = std::chrono::duration_cast<std::chrono::milliseconds>(stopzeit - startzeit).count();
+	std::cout << "Elapsed time for 46 frames: " << dauer << "ms"<< std::endl;
+	std::cout << "Elapsed time should be: " << (height*(1000/60)) << "ms\n"; //49
+	std::cout << "Actual frametime: " << (dauer/height) << "ms\n";
+	std::cout << "Estimated frametime: " << (1000/60) << "ms\n";
+	std::cout << "actual fps: " << (1000/(dauer/height)) << "\n";
 */
 
 

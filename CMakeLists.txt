@@ -75,4 +75,9 @@ target_link_libraries(${PROJECT_NAME}
 #Boost::system
 )
 
+file(GLOB ANIMATION_FILES ${CMAKE_CURRENT_SOURCE_DIR}/assets/*.bmp)
+message(STATUS "Animation Files are: ${ANIMATION_FILES}")
+
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+install(FILES ${ANIMATION_FILES} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+
