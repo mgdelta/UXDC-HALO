@@ -88,9 +88,17 @@ int main(int argc, char **argv)
 	});
 
 // test section for png handling
-    //std::string filename = "196 Alicia Welcome_mg.bmp";
-    std::string filename = "196 Alicia_child left behind.bmp";
-    
+	std::string file_alicia_child = "196 Alicia_child left behind.bmp";
+    std::string file_alicia_bye = "196 Alicia Exit.bmp";
+    std::string file_alicia_welcome = "196 Alicia Welcome.bmp";
+    std::string file_andrew_bye = "196 Andrew Bye.bmp";
+    std::string file_andrew_welcome = "196 Andrew Welcome.bmp";
+	std::vector<unsigned char> animation_alicia_child;
+	std::vector<unsigned char> animation_alicia_welcome;
+	std::vector<unsigned char> animation_alicia_bye;
+	std::vector<unsigned char> animation_andrew_welcome;
+	std::vector<unsigned char> animation_andrew_bye;
+ /*   
     int width, height;
     std::vector<unsigned char> image;
     bool success = load_image(image, filename, width, height);
@@ -99,10 +107,10 @@ int main(int argc, char **argv)
         std::cout << "Error loading image\n";
         return 1;
     }
-    
-    std::cout << "Image width = " << width << '\n';
-    std::cout << "Image height = " << height << '\n';
-    
+*/    
+    //std::cout << "Image width = " << width << '\n';
+    //std::cout << "Image height = " << height << '\n';
+/*    
     const size_t RGBA = 3;
 
     
@@ -114,20 +122,14 @@ int main(int argc, char **argv)
               << static_cast<int>(image[index + 1]) << " "
               << static_cast<int>(image[index + 2]) << " "
               << static_cast<int>(image[index + 3]) << '\n';
-     /*         
-    for (int i = 0; i<(4*width*height); i++)
-    {
-		std::cout << +image[index +i] << " ";
-	}
 */
 	
 
-	std::vector<unsigned char> &pxdata = image;
+	//std::vector<unsigned char> &pxdata = image;
 
 
-
+/*
 auto startzeit = std::chrono::steady_clock::now();
-//	strip.Halo_setStripColor();
 strip.Halo_PlayAnimation(image,height,width);
 auto stopzeit = std::chrono::steady_clock::now();
 auto dauer = std::chrono::duration_cast<std::chrono::milliseconds>(stopzeit - startzeit).count();
@@ -136,17 +138,75 @@ std::cout << "Elapsed time should be: " << (height*(1000/60)) << "ms\n"; //49
 std::cout << "Actual frametime: " << (dauer/height) << "ms\n";
 std::cout << "Estimated frametime: " << (1000/60) << "ms\n";
 std::cout << "actual fps: " << (1000/(dauer/height)) << "\n";
-
+*/
 
 
   // enter main loop
 	while(1)
 	{
+		
+    int width, height;
+ 
+    bool success = load_image(animation_alicia_welcome, file_alicia_welcome, width, height);
+    if (!success)
+    {
+        std::cout << "Error loading image " << file_alicia_welcome << std::endl;;
+        return 1;
+    }		
+	strip.Halo_PlayAnimation(animation_alicia_welcome,height,width);	
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));		
+
+
+		
+	success = load_image(animation_alicia_bye, file_alicia_bye, width, height);
+    if (!success)
+    {
+        std::cout << "Error loading image " << file_alicia_bye << std::endl;;
+        return 1;
+    }		
+	strip.Halo_PlayAnimation(animation_alicia_bye,height,width);	
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));				
+
+
+		
+	success = load_image(animation_alicia_child, file_alicia_child, width, height);
+    if (!success)
+    {
+        std::cout << "Error loading image " << file_alicia_child << std::endl;;
+        return 1;
+    }		
+	strip.Halo_PlayAnimation(animation_alicia_child,height,width);	
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));				
+	
+
+		
+	success = load_image(animation_andrew_welcome, file_andrew_welcome, width, height);
+    if (!success)
+    {
+        std::cout << "Error loading image " << file_andrew_welcome << std::endl;;
+        return 1;
+    }		
+	strip.Halo_PlayAnimation(animation_andrew_welcome,height,width);	
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));		
+		
+
+		
+	success = load_image(animation_andrew_bye, file_andrew_bye, width, height);
+    if (!success)
+    {
+        std::cout << "Error loading image " << file_andrew_bye << std::endl;;
+        return 1;
+    }		
+	strip.Halo_PlayAnimation(animation_andrew_bye,height,width);	
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));			
+		
+		
+		
 	//strip.fill(strip.Color(50,0,0),0,72);	
 	//strip.show();
      //sleep 1000 ms
-     strip.Halo_PlayAnimation(image,height,width);
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+     
+
 //
 //	strip.fill(strip.Color(0,50,0),0,72);	
 //	strip.show();
