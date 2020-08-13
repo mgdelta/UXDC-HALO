@@ -397,6 +397,7 @@ void Adafruit_DotStar::show(void) {
     // https://cpldcpu.wordpress.com/2014/11/30/understanding-the-apa102-superled/
     for(i=0; i<((numLEDs + 15) / 16); i++) spi_out(0xFF);
 
+
   } else {                               // Soft (bitbang) SPI
 
     for(i=0; i<4; i++) sw_spi_out(0);    // Start-frame marker
@@ -701,7 +702,7 @@ void Adafruit_DotStar::Halo_Strip_FadeOut(const uint32_t color, const unsigned i
 			std::this_thread::sleep_for(std::chrono::milliseconds(fadetime_ms));
 	}
 }
-
+// TO DO: delete this function, deprecated, tests only
 void Adafruit_DotStar::Halo_setStripColor() {
   //if(n < numLEDs)
     uint8_t *p = &pixels[0]; //pointer auf pixelbuffer auf Anfang des Buffers
@@ -760,10 +761,6 @@ void Adafruit_DotStar::Halo_PlayAnimation(std::vector<unsigned char> &animation_
 		{
 			// index to RGB triple inside pixel buffer array
 			size_t index = 3 * (animation_line * numLEDs + pixel_no);		
-			// std::cout << spalte <<": (" 
-			//           << static_cast<int>(bilddaten[index + 0]) << ","
-			//           << static_cast<int>(bilddaten[index + 1]) << ","
-			//           << static_cast<int>(bilddaten[index + 2]) << ")\n";
   
 			// copy RGB values into pixel buffer arrays position
 			p[(pixel_no*3) + rOffset] = static_cast<int>(animation_buffer[index + 0]);
