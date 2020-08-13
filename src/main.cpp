@@ -42,7 +42,7 @@ bool load_image(std::vector<unsigned char>& image, const std::string& filename, 
 {
     int n;
     unsigned char* data = stbi_load(filename.c_str(), &x, &y, &n, 3);
-    std::cout << "Channels found: " << n << std::endl;
+    // std::cout << "Channels found: " << n << std::endl;
     if (data != nullptr)
     {
         image = std::vector<unsigned char>(data, data + x * y * 3);
