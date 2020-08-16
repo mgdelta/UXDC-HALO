@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.5)
 
-project(IAA_SteeringWheel)
+project(UXDC-HALO)
 
 
 
@@ -13,6 +13,7 @@ find_package(Protobuf REQUIRED)
 
 #create_targets_protobuf()
 
+
 set(SRC_FILES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 )
@@ -24,9 +25,9 @@ get_filename_component(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR} ABSOLUTE)
 message(STATUS "Variable SRC_PATH: ${SRC_DIR}")
 set(PROTO_IDL_DIR ${SRC_DIR}/protobuf)
 set(PROTO_IDL_FILES
-	${PROTO_IDL_DIR}/animal.proto
-	${PROTO_IDL_DIR}/house.proto
-	${PROTO_IDL_DIR}/person.proto
+	#${PROTO_IDL_DIR}/animal.proto
+	#${PROTO_IDL_DIR}/house.proto
+	#${PROTO_IDL_DIR}/person.proto
 	${PROTO_IDL_DIR}/IAA_HaloSteeringWheel.proto
 )
 
@@ -42,6 +43,7 @@ message(STATUS "Generated Protos")
 message(STATUS "PROTO_SRC_FILES are: ${PROTO_SRC_FILES}")
 message(STATUS "PROTO_HDR_FILES are: ${PROTO_HDR_FILES}")
 message(STATUS "PROTO_INCL_DIR: ${PROTO_INCLUDE_DIRS}")
+
 message(STATUS "Boost Libraries: ${Boost_LIBRARIES}")
 message(STATUS "Boost Includedir: ${Boost_INCLUDE_DIRS}")
 
@@ -57,10 +59,12 @@ ${CMAKE_CURRENT_SOURCE_DIR}/src/ecalcomm.cpp
 target_include_directories(${PROJECT_NAME} PRIVATE 
 	${PROTO_INCLUDE_DIRS}/
 	${CMAKE_CURRENT_SOURCE_DIR}/include/
+	${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/stb
 #${Boost_INCLUDE_DIRS}
 )
 
 message(STATUS "libapa: ${CMAKE_SOURCE_DIR}")
+
 target_link_libraries(${PROJECT_NAME}
   eCAL::core
   protobuf::libprotobuf
@@ -70,4 +74,10 @@ target_link_libraries(${PROJECT_NAME}
 #	rt
 #Boost::system
 )
+
+file(GLOB ANIMATION_FILES ${CMAKE_CURRENT_SOURCE_DIR}/assets/*.bmp)
+message(STATUS "Animation Files are: ${ANIMATION_FILES}")
+
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+install(FILES ${ANIMATION_FILES} DESTINATION ${CMAKE_CURRENT_SOURCE_DIR}/bin)
+
