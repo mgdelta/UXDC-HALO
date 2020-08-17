@@ -1,7 +1,6 @@
 
 #include <boost/signals2.hpp>
 
-#include "IAA_HaloSteeringWheel.pb.h"
 #include "UXDC_Halo.pb.h"
 
 class eCAL_UXDCHalo

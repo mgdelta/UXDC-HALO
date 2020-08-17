@@ -6,12 +6,11 @@
 #include <chrono>
 #include <thread>
 
-#include "IAA_HaloSteeringWheel.pb.h"
 #include "UXDC_Halo.pb.h"
 
 void eCAL_UXDCHalo::Init()
 {
-	eCAL::Initialize(0, 0, "IAA_Halo_SteeringWheel_Controller");
+	eCAL::Initialize(0, 0, "UXDC_Halo_Controller");
 	eCAL::Process::SetState(proc_sev_healthy, proc_sev_level1, "I feel good !");
 
 }
@@ -24,21 +23,11 @@ void eCAL_UXDCHalo::DeInit()
 
 void eCAL_UXDCHalo::OnSetStripColor(const char* _topic, const UXDC::Halo::SetColor_Strip &_msg, const long long _time, const long long _clock, const long long _id)
 {
-//	std::cout << "Color" << std::endl;
-//	std::cout << "Red: " <<_msg.red()<< std::endl;
-//	std::cout << "Green: " <<_msg.green()<< std::endl;
-//	std::cout << "Blue: " <<_msg.blue()<< std::endl;
-//	std::cout << "GlobalBrightness: " <<_msg.globalbrightness()<< std::endl;
 	signal_setcolor(_msg.red(),_msg.green(),_msg.blue(),_msg.globalbrightness());
 }
 
 void eCAL_UXDCHalo::OnClearStrip(const char* _topic, const UXDC::Halo::Clear_Strip &_msg, const long long _time, const long long _clock, const long long _id)
 {
-//	std::cout << "Color" << std::endl;
-//	std::cout << "Red: " <<_msg.red()<< std::endl;
-//	std::cout << "Green: " <<_msg.green()<< std::endl;
-//	std::cout << "Blue: " <<_msg.blue()<< std::endl;
-//	std::cout << "GlobalBrightness: " <<_msg.globalbrightness()<< std::endl;
 	signal_clear();
 }
 
@@ -78,15 +67,14 @@ void eCAL_UXDCHalo::Start_eCAL()
 void eCAL_UXDCHalo::ecal_runner()
 {
 
-	eCAL::protobuf::CPublisher<UXDC::Halo::HALO_Status> pub_Status("HALO_SteeringWheel_Status");
-	//pub_Status.SetRefFrequency(1.0, 3.0);
+	eCAL::protobuf::CPublisher<UXDC::Halo::HALO_Status> pub_Status("UXDC_Halo__Status");
 	
 	eCAL::protobuf::CSubscriber<UXDC::Halo::SetColor_Strip> sub_SetColor("Halo_SW_SetColor");
 	eCAL::protobuf::CSubscriber<UXDC::Halo::Clear_Strip> sub_ClearStrip("Halo_SW_ClearStrip");
 	eCAL::protobuf::CSubscriber<UXDC::Halo::Cmd_FadeIn> sub_fadein("Halo_SW_FadeIn");
 	eCAL::protobuf::CSubscriber<UXDC::Halo::Cmd_FadeOut> sub_fadeout("Halo_SW_FadeOut");
 	
-	eCAL::protobuf::CSubscriber<UXDC::Halo::SetEvent> sub_statemachine("HALO_SteeringWheelCommand");
+	eCAL::protobuf::CSubscriber<UXDC::Halo::SetEvent> sub_statemachine("UXDC_Halo_Triggerevent");
 
 	
 	auto cb_setcolor = std::bind(&eCAL_UXDCHalo::OnSetStripColor, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
