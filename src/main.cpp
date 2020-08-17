@@ -22,7 +22,6 @@
 #include <thread>
 
 #include "Adafruit_DotStar.h"
-#include "IAA_HaloSteeringWheel.pb.h"
 #include "UXDC_Halo.pb.h"
 #include "ecalcomm.h"
 #include <boost/signals2.hpp>
