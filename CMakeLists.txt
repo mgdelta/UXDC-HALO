@@ -25,10 +25,8 @@ get_filename_component(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR} ABSOLUTE)
 message(STATUS "Variable SRC_PATH: ${SRC_DIR}")
 set(PROTO_IDL_DIR ${SRC_DIR}/protobuf)
 set(PROTO_IDL_FILES
-	#${PROTO_IDL_DIR}/animal.proto
-	#${PROTO_IDL_DIR}/house.proto
-	#${PROTO_IDL_DIR}/person.proto
-	${PROTO_IDL_DIR}/IAA_HaloSteeringWheel.proto
+#	${PROTO_IDL_DIR}/IAA_HaloSteeringWheel.proto
+	${PROTO_IDL_DIR}/UXDC_Halo.proto
 )
 
 

@@ -22,7 +22,7 @@
 #include <thread>
 
 #include "Adafruit_DotStar.h"
-#include "IAA_HaloSteeringWheel.pb.h"
+#include "UXDC_Halo.pb.h"
 #include "ecalcomm.h"
 #include <boost/signals2.hpp>
 
@@ -64,14 +64,14 @@ int main(int argc, char **argv)
 	strip.Halo_ClearAll();
 
 	// Starting eCAL 
-	eCAL_HaloSteeringWheel mECAL;
+	eCAL_UXDCHalo mECAL;
 	mECAL.Init();
 	mECAL.Start_eCAL();
 
 	boost::signals2::connection c1 = mECAL.signal_setcolor.connect([&strip](int r, int g, int b, int br)
 	{
 		strip.setBrightness(br);
-		strip.fill(strip.Color(r,g,b),0,144);
+		strip.fill(strip.Color(r,g,b),0,DEFAULT_LEDS);
 		strip.show();
 	});
 	boost::signals2::connection c2 = mECAL.signal_clear.connect([&strip]()

@@ -6,105 +6,94 @@
 #include <chrono>
 #include <thread>
 
-#include "IAA_HaloSteeringWheel.pb.h"
+#include "UXDC_Halo.pb.h"
 
-void eCAL_HaloSteeringWheel::Init()
+void eCAL_UXDCHalo::Init()
 {
-	eCAL::Initialize(0, 0, "IAA_Halo_SteeringWheel_Controller");
+	eCAL::Initialize(0, 0, "UXDC_Halo_Controller");
 	eCAL::Process::SetState(proc_sev_healthy, proc_sev_level1, "I feel good !");
 
 }
 
-void eCAL_HaloSteeringWheel::DeInit()
+void eCAL_UXDCHalo::DeInit()
 {
 	// finalize eCAL API
 	eCAL::Finalize();
 }
 
-void eCAL_HaloSteeringWheel::OnSetStripColor(const char* _topic, const IAA::Halo::SteeringWheel::SetColor_Strip &_msg, const long long _time, const long long _clock, const long long _id)
+void eCAL_UXDCHalo::OnSetStripColor(const char* _topic, const UXDC::Halo::SetColor_Strip &_msg, const long long _time, const long long _clock, const long long _id)
 {
-//	std::cout << "Color" << std::endl;
-//	std::cout << "Red: " <<_msg.red()<< std::endl;
-//	std::cout << "Green: " <<_msg.green()<< std::endl;
-//	std::cout << "Blue: " <<_msg.blue()<< std::endl;
-//	std::cout << "GlobalBrightness: " <<_msg.globalbrightness()<< std::endl;
 	signal_setcolor(_msg.red(),_msg.green(),_msg.blue(),_msg.globalbrightness());
 }
 
-void eCAL_HaloSteeringWheel::OnClearStrip(const char* _topic, const IAA::Halo::SteeringWheel::Clear_Strip &_msg, const long long _time, const long long _clock, const long long _id)
+void eCAL_UXDCHalo::OnClearStrip(const char* _topic, const UXDC::Halo::Clear_Strip &_msg, const long long _time, const long long _clock, const long long _id)
 {
-//	std::cout << "Color" << std::endl;
-//	std::cout << "Red: " <<_msg.red()<< std::endl;
-//	std::cout << "Green: " <<_msg.green()<< std::endl;
-//	std::cout << "Blue: " <<_msg.blue()<< std::endl;
-//	std::cout << "GlobalBrightness: " <<_msg.globalbrightness()<< std::endl;
 	signal_clear();
 }
 
-void eCAL_HaloSteeringWheel::OnCmdFadeIn(const char* _topic, const IAA::Halo::SteeringWheel::Cmd_FadeIn &_msg, const long long _time, const long long _clock, const long long _id)
+void eCAL_UXDCHalo::OnCmdFadeIn(const char* _topic, const UXDC::Halo::Cmd_FadeIn &_msg, const long long _time, const long long _clock, const long long _id)
 {
 	signal_fadein(_msg.red(),_msg.green(),_msg.blue(),_msg.brightness(), _msg.delay());
 }
 
-void eCAL_HaloSteeringWheel::OnCmdFadeOut(const char* _topic, const IAA::Halo::SteeringWheel::Cmd_FadeOut &_msg, const long long _time, const long long _clock, const long long _id)
+void eCAL_UXDCHalo::OnCmdFadeOut(const char* _topic, const UXDC::Halo::Cmd_FadeOut &_msg, const long long _time, const long long _clock, const long long _id)
 {
 	signal_fadeout(_msg.red(),_msg.green(),_msg.blue(),_msg.delay());
 }
 
-void eCAL_HaloSteeringWheel::OnStateMachine(const char* _topic, const IAA::Halo::SteeringWheel::HALO_SteeringWheelCommand &_msg, const long long _time, const long long _clock, const long long _id)
+void eCAL_UXDCHalo::OnStateMachine(const char* _topic, const UXDC::Halo::SetEvent &_msg, const long long _time, const long long _clock, const long long _id)
 {
-	if (_msg.command() == IAA::Halo::SteeringWheel::HALO_SteeringWheelCommand_CommandList::HALO_SteeringWheelCommand_CommandList_FADE_IN)
+	if (_msg.sendevent() == UXDC::Halo::SetEvent_EventCommandList::SetEvent_EventCommandList_FADE_IN)
 	{
 		//signal_fadein(_msg.red(),_msg.green(),_msg.blue(),_msg.brightness(), _msg.delay());
 		signal_fadein(255,255,255,255,0);
 	}
-	if (_msg.command() == IAA::Halo::SteeringWheel::HALO_SteeringWheelCommand_CommandList::HALO_SteeringWheelCommand_CommandList_FADE_OUT)
+	if (_msg.sendevent() == UXDC::Halo::SetEvent_EventCommandList::SetEvent_EventCommandList_FADE_OUT)
 	{
 		//signal_fadeout(_msg.red(),_msg.green(),_msg.blue(),_msg.delay());
 		signal_fadeout(255,255,255,0);
 	}	
-	if (_msg.command() == IAA::Halo::SteeringWheel::HALO_SteeringWheelCommand_CommandList::HALO_SteeringWheelCommand_CommandList_IDLE_OFF)
+	if (_msg.sendevent() == UXDC::Halo::SetEvent_EventCommandList::SetEvent_EventCommandList_IDLE_OFF)
 	{
 		signal_clear();
 	}
 }
 
-void eCAL_HaloSteeringWheel::Start_eCAL()
+void eCAL_UXDCHalo::Start_eCAL()
 {
-	std::thread (&eCAL_HaloSteeringWheel::ecal_runner, this).detach();
+	std::thread (&eCAL_UXDCHalo::ecal_runner, this).detach();
 }
 
-void eCAL_HaloSteeringWheel::ecal_runner()
+void eCAL_UXDCHalo::ecal_runner()
 {
 
-	eCAL::protobuf::CPublisher<IAA::Halo::SteeringWheel::HALO_SteeringWheel_Status> pub_Status("HALO_SteeringWheel_Status");
-	//pub_Status.SetRefFrequency(1.0, 3.0);
+	eCAL::protobuf::CPublisher<UXDC::Halo::HALO_Status> pub_Status("UXDC_Halo_Status");
 	
-	eCAL::protobuf::CSubscriber<IAA::Halo::SteeringWheel::SetColor_Strip> sub_SetColor("Halo_SW_SetColor");
-	eCAL::protobuf::CSubscriber<IAA::Halo::SteeringWheel::Clear_Strip> sub_ClearStrip("Halo_SW_ClearStrip");
-	eCAL::protobuf::CSubscriber<IAA::Halo::SteeringWheel::Cmd_FadeIn> sub_fadein("Halo_SW_FadeIn");
-	eCAL::protobuf::CSubscriber<IAA::Halo::SteeringWheel::Cmd_FadeOut> sub_fadeout("Halo_SW_FadeOut");
+	eCAL::protobuf::CSubscriber<UXDC::Halo::SetColor_Strip> sub_SetColor("UXDC_Halo_SetColor");
+	eCAL::protobuf::CSubscriber<UXDC::Halo::Clear_Strip> sub_ClearStrip("UXDC_Halo_ClearStrip");
+	eCAL::protobuf::CSubscriber<UXDC::Halo::Cmd_FadeIn> sub_fadein("UXDC_Halo_FadeIn");
+	eCAL::protobuf::CSubscriber<UXDC::Halo::Cmd_FadeOut> sub_fadeout("UXDC_Halo_FadeOut");
 	
-	eCAL::protobuf::CSubscriber<IAA::Halo::SteeringWheel::HALO_SteeringWheelCommand> sub_statemachine("HALO_SteeringWheelCommand");
+	eCAL::protobuf::CSubscriber<UXDC::Halo::SetEvent> sub_statemachine("UXDC_Halo_TriggerEvent");
 
 	
-	auto cb_setcolor = std::bind(&eCAL_HaloSteeringWheel::OnSetStripColor, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
+	auto cb_setcolor = std::bind(&eCAL_UXDCHalo::OnSetStripColor, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
 	sub_SetColor.AddReceiveCallback(cb_setcolor);
 	
-	auto cb_clearstrip = std::bind(&eCAL_HaloSteeringWheel::OnClearStrip, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
+	auto cb_clearstrip = std::bind(&eCAL_UXDCHalo::OnClearStrip, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
 	sub_ClearStrip.AddReceiveCallback(cb_clearstrip);
 	
-	auto cb_fadein = std::bind(&eCAL_HaloSteeringWheel::OnCmdFadeIn, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
+	auto cb_fadein = std::bind(&eCAL_UXDCHalo::OnCmdFadeIn, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
 	sub_fadein.AddReceiveCallback(cb_fadein);	
 
-	auto cb_fadeout = std::bind(&eCAL_HaloSteeringWheel::OnCmdFadeOut, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
+	auto cb_fadeout = std::bind(&eCAL_UXDCHalo::OnCmdFadeOut, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
 	sub_fadeout.AddReceiveCallback(cb_fadeout);	
 
-	auto cb_statemachine = std::bind(&eCAL_HaloSteeringWheel::OnStateMachine, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
+	auto cb_statemachine = std::bind(&eCAL_UXDCHalo::OnStateMachine, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
 	sub_statemachine.AddReceiveCallback(cb_statemachine);	
 
 	
-	IAA::Halo::SteeringWheel::HALO_SteeringWheel_Status status;
+	UXDC::Halo::HALO_Status status;
 	
 	auto cnt = 0;
 	while(eCAL::Ok())
