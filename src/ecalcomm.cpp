@@ -67,14 +67,14 @@ void eCAL_UXDCHalo::Start_eCAL()
 void eCAL_UXDCHalo::ecal_runner()
 {
 
-	eCAL::protobuf::CPublisher<UXDC::Halo::HALO_Status> pub_Status("UXDC_Halo__Status");
+	eCAL::protobuf::CPublisher<UXDC::Halo::HALO_Status> pub_Status("UXDC_Halo_Status");
 	
-	eCAL::protobuf::CSubscriber<UXDC::Halo::SetColor_Strip> sub_SetColor("Halo_SW_SetColor");
-	eCAL::protobuf::CSubscriber<UXDC::Halo::Clear_Strip> sub_ClearStrip("Halo_SW_ClearStrip");
-	eCAL::protobuf::CSubscriber<UXDC::Halo::Cmd_FadeIn> sub_fadein("Halo_SW_FadeIn");
-	eCAL::protobuf::CSubscriber<UXDC::Halo::Cmd_FadeOut> sub_fadeout("Halo_SW_FadeOut");
+	eCAL::protobuf::CSubscriber<UXDC::Halo::SetColor_Strip> sub_SetColor("UXDC_Halo_SetColor");
+	eCAL::protobuf::CSubscriber<UXDC::Halo::Clear_Strip> sub_ClearStrip("UXDC_Halo_ClearStrip");
+	eCAL::protobuf::CSubscriber<UXDC::Halo::Cmd_FadeIn> sub_fadein("UXDC_Halo_FadeIn");
+	eCAL::protobuf::CSubscriber<UXDC::Halo::Cmd_FadeOut> sub_fadeout("UXDC_Halo_FadeOut");
 	
-	eCAL::protobuf::CSubscriber<UXDC::Halo::SetEvent> sub_statemachine("UXDC_Halo_Triggerevent");
+	eCAL::protobuf::CSubscriber<UXDC::Halo::SetEvent> sub_statemachine("UXDC_Halo_TriggerEvent");
 
 	
 	auto cb_setcolor = std::bind(&eCAL_UXDCHalo::OnSetStripColor, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
