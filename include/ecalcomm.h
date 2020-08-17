@@ -11,13 +11,13 @@ class eCAL_UXDCHalo
 		void DeInit();
 		void Start_eCAL();
 		
-		void OnCmdFadeIn(const char* _topic, const IAA::Halo::SteeringWheel::Cmd_FadeIn &_msg, const long long _time, const long long _clock, const long long _id);
-		void OnCmdFadeOut(const char* _topic, const IAA::Halo::SteeringWheel::Cmd_FadeOut &_msg, const long long _time, const long long _clock, const long long _id);
-		void OnSetStripLength(const char* _topic, const IAA::Halo::SteeringWheel::SetLength_Strip &_msg, const long long _time, const long long _clock, const long long _id);
-		void OnSetStripColor(const char* _topic, const IAA::Halo::SteeringWheel::SetColor_Strip &_msg, const long long _time, const long long _clock, const long long _id);
-		void OnClearStrip(const char* _topic, const IAA::Halo::SteeringWheel::Clear_Strip &_msg, const long long _time, const long long _clock, const long long _id);
+		void OnCmdFadeIn(const char* _topic, const UXDC::Halo::Cmd_FadeIn &_msg, const long long _time, const long long _clock, const long long _id);
+		void OnCmdFadeOut(const char* _topic, const UXDC::Halo::Cmd_FadeOut &_msg, const long long _time, const long long _clock, const long long _id);
+		void OnSetStripLength(const char* _topic, const UXDC::Halo::SetLength_Strip &_msg, const long long _time, const long long _clock, const long long _id);
+		void OnSetStripColor(const char* _topic, const UXDC::Halo::SetColor_Strip &_msg, const long long _time, const long long _clock, const long long _id);
+		void OnClearStrip(const char* _topic, const UXDC::Halo::Clear_Strip &_msg, const long long _time, const long long _clock, const long long _id);
 	  
-  		void OnStateMachine(const char* _topic, const IAA::Halo::SteeringWheel::HALO_SteeringWheelCommand &_msg, const long long _time, const long long _clock, const long long _id);
+  		void OnStateMachine(const char* _topic, const UXDC::Halo::SetEvent &_msg, const long long _time, const long long _clock, const long long _id);
 
 	  
 		boost::signals2::signal<void(int,int,int,int)> signal_setcolor;
