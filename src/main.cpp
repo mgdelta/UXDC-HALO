@@ -115,7 +115,7 @@ int main(int argc, char **argv)
   // enter main loop
 	while(1)
 	{
-		
+/*		
     int width, height;
  
     bool success = load_image(animation_alicia_welcome, file_alicia_welcome, width, height);
@@ -170,7 +170,7 @@ int main(int argc, char **argv)
     }		
 	strip.Halo_PlayAnimation(animation_andrew_bye,height,width);	
     std::this_thread::sleep_for(std::chrono::milliseconds(500));			
-		
+*/		
 		
 		
 	//strip.fill(strip.Color(50,0,0),0,72);	
@@ -184,7 +184,7 @@ int main(int argc, char **argv)
 //    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 //	strip.fill(strip.Color(0,0,50),0,72);	
 //	strip.show();
-//    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
 	}
 
