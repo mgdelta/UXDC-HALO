@@ -90,14 +90,35 @@ int main(int argc, char **argv)
 	boost::signals2::connection con5 = mECAL.signal_playanimation.connect([&strip](unsigned char anim_number)
 	{
 		int width, height;
-		std::string file = "196 Alicia_child left behind.bmp";
-		
+		std::string filename = "";
 		std::vector<unsigned char> animation;
-		bool success = load_image(animation, file, width, height);
+		
+		if (anim_number == 1)
+			filename = "196 Alicia Welcome.bmp";
+		else if (anim_number == 2)
+			filename = "196 Alicia_child left behind.bmp";
+		else if (anim_number == 3)
+			filename = "196 Alicia Exit.bmp";
+		else if (anim_number == 4)
+			filename = "196 Andrew Welcome.bmp";		
+		else if (anim_number == 5)
+			filename = "196 Andrew Bye.bmp";
+		else		
+			filename = "";
+		
+		if (filename != "")
+		{
+
+		bool success = load_image(animation, filename, width, height);
 		if (!success)	
-			std::cout << "Error loading image " << file << std::endl;		
+			std::cout << "Error loading image " << filename << std::endl;		
 		else 
 			strip.Halo_PlayAnimation(animation,height,width);
+		}
+		else
+		{
+			std::cout << "Error selecting animation file, wrong argument" << std::endl;
+		}
 	});	
 	
 	

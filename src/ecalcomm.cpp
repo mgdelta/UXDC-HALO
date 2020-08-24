@@ -68,18 +68,22 @@ void eCAL_UXDCHalo::OnStateMachine(const char* _topic, const UXDC::Halo::SetEven
 	if (_msg.sendevent() == UXDC::Halo::SetEvent_EventCommandList::SetEvent_EventCommandList_ANIM_02)
 	{
 		std::cout << "Event received, Playing (fixed) Animation 02" << std::endl;
+		signal_playanimation(2);
 	}
 	if (_msg.sendevent() == UXDC::Halo::SetEvent_EventCommandList::SetEvent_EventCommandList_ANIM_03)
 	{
 		std::cout << "Event received, Playing (fixed) Animation 03" << std::endl;
+		signal_playanimation(3);
 	}
 	if (_msg.sendevent() == UXDC::Halo::SetEvent_EventCommandList::SetEvent_EventCommandList_ANIM_04)
 	{
 		std::cout << "Event received, Playing (fixed) Animation 04" << std::endl;
+		signal_playanimation(4);
 	}
 	if (_msg.sendevent() == UXDC::Halo::SetEvent_EventCommandList::SetEvent_EventCommandList_ANIM_05)
 	{
 		std::cout << "Event received, Playing (fixed) Animation 05" << std::endl;
+		signal_playanimation(5);
 	}
 }
 
