@@ -87,7 +87,7 @@ int main(int argc, char **argv)
 		strip.Halo_Strip_FadeOut(strip.Color(r,g,b),delay);
 	});
 
-	boost::signals2::connection con5 = mECAL.signal_playanimation.connect([&strip]()
+	boost::signals2::connection con5 = mECAL.signal_playanimation.connect([&strip](unsigned char anim_number)
 	{
 		int width, height;
 		std::string file = "196 Alicia_child left behind.bmp";
