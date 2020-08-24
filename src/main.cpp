@@ -87,6 +87,23 @@ int main(int argc, char **argv)
 		strip.Halo_Strip_FadeOut(strip.Color(r,g,b),delay);
 	});
 
+	boost::signals2::connection con5 = mECAL.signal_playanimation.connect([&strip]()
+	{
+		int width, height;
+		std::string file = "196 Alicia_child left behind.bmp";
+		
+		std::vector<unsigned char> animation;
+		bool success = load_image(animation, file, width, height);
+		if (!success)	
+			std::cout << "Error loading image " << file << std::endl;		
+		else 
+			strip.Halo_PlayAnimation(animation,height,width);
+	});	
+	
+	
+	
+	
+
 // test section for animation file handling
 	std::string file_alicia_child = "196 Alicia_child left behind.bmp";
     std::string file_alicia_bye = "196 Alicia Exit.bmp";
