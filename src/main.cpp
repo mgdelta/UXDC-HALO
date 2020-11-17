@@ -87,6 +87,44 @@ int main(int argc, char **argv)
 		strip.Halo_Strip_FadeOut(strip.Color(r,g,b),delay);
 	});
 
+	boost::signals2::connection con5 = mECAL.signal_playanimation.connect([&strip](unsigned char anim_number)
+	{
+		int width, height;
+		std::string filename = "";
+		std::vector<unsigned char> animation;
+		
+		if (anim_number == 1)
+			filename = "196 Alicia Welcome.bmp";
+		else if (anim_number == 2)
+			filename = "196 Alicia_child left behind.bmp";
+		else if (anim_number == 3)
+			filename = "196 Alicia Exit.bmp";
+		else if (anim_number == 4)
+			filename = "196 Andrew Welcome.bmp";		
+		else if (anim_number == 5)
+			filename = "196 Andrew Bye.bmp";
+		else		
+			filename = "";
+		
+		if (filename != "")
+		{
+
+		bool success = load_image(animation, filename, width, height);
+		if (!success)	
+			std::cout << "Error loading image " << filename << std::endl;		
+		else 
+			strip.Halo_PlayAnimation(animation,height,width);
+		}
+		else
+		{
+			std::cout << "Error selecting animation file, wrong argument" << std::endl;
+		}
+	});	
+	
+	
+	
+	
+
 // test section for animation file handling
 	std::string file_alicia_child = "196 Alicia_child left behind.bmp";
     std::string file_alicia_bye = "196 Alicia Exit.bmp";
@@ -115,7 +153,7 @@ int main(int argc, char **argv)
   // enter main loop
 	while(1)
 	{
-		
+/*		
     int width, height;
  
     bool success = load_image(animation_alicia_welcome, file_alicia_welcome, width, height);
@@ -170,7 +208,7 @@ int main(int argc, char **argv)
     }		
 	strip.Halo_PlayAnimation(animation_andrew_bye,height,width);	
     std::this_thread::sleep_for(std::chrono::milliseconds(500));			
-		
+*/		
 		
 		
 	//strip.fill(strip.Color(50,0,0),0,72);	
@@ -184,7 +222,7 @@ int main(int argc, char **argv)
 //    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 //	strip.fill(strip.Color(0,0,50),0,72);	
 //	strip.show();
-//    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
 	}
 

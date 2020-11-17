@@ -87,8 +87,13 @@ message SetEvent
   {
 	NONE 				= 0;
     FADE_IN 			= 1;  				// Trigger Fade In Animation with fixed settings for use case scenario (here: white with max brightness, speed fixed)
-    FADE_OUT 		= 2; 					// Trigger Fade Out Animation with fixed settings for use case scenario (here: turn to black, speed fixed)
-    IDLE_OFF 			= 3; 					// Trigger to turn off illumination instantly (hard off)
+    FADE_OUT 			= 2; 				// Trigger Fade Out Animation with fixed settings for use case scenario (here: turn to black, speed fixed)
+    IDLE_OFF 			= 3; 				// Trigger to turn off illumination instantly (hard off)
+    ANIM_01				= 4;				// Play animation on Halo 'Alicia Welocme'
+    ANIM_02				= 5;				// Play animation on Halo 'Alicia Bye'
+    ANIM_03				= 6;				// Play animation on Halo 'Warning Child Left Behind'
+    ANIM_04				= 7;				// Play animation on Halo 'Andrew Welcome'
+    ANIM_05				= 8;				// Play animation on Halo 'Andrew Bye'
   }
 
   EventCommandList sendevent = 1;				// 'sendevent' with one of the events in the list 'EventCommandList'

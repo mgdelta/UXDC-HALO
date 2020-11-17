@@ -23,6 +23,7 @@ class eCAL_UXDCHalo
 		boost::signals2::signal<void(void)> signal_clear;
 		boost::signals2::signal<void(int,int,int,int,int)> signal_fadein;
 		boost::signals2::signal<void(int,int,int,int)> signal_fadeout;
+		boost::signals2::signal<void(unsigned char)> signal_playanimation;
 	  
 	private:  
 		void ecal_runner();
