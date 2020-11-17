@@ -1,6 +1,6 @@
 [submodule "3rdparty/stb"]
 	path = 3rdparty/stb
 	url = https://github.com/nothings/stb.git
-[submodule "protobuf/"]
-	path = protobuf/
-	url = https://github.com/mgdelta/UXDC-protofiles
+[submodule "protobuf"]
+	path = protobuf
+	url = https://github.com/mgdelta/UXDC-protofiles.git
