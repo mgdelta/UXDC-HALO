@@ -96,9 +96,9 @@ int main(int argc, char **argv)
 		if (anim_number == 1)
 			filename = "196 Alicia Welcome.bmp";
 		else if (anim_number == 2)
-			filename = "196 Alicia_child left behind.bmp";
-		else if (anim_number == 3)
 			filename = "196 Alicia Exit.bmp";
+		else if (anim_number == 3)
+			filename = "196 Alicia_child left behind.bmp";
 		else if (anim_number == 4)
 			filename = "196 Andrew Welcome.bmp";		
 		else if (anim_number == 5)
