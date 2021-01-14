@@ -109,11 +109,14 @@ int main(int argc, char **argv)
 		if (filename != "")
 		{
 
-		bool success = load_image(animation, filename, width, height);
-		if (!success)	
-			std::cout << "Error loading image " << filename << std::endl;		
-		else 
-			strip.Halo_PlayAnimation(animation,height,width);
+			bool success = load_image(animation, filename, width, height);
+			if (!success)	
+				std::cout << "Error loading image " << filename << std::endl;		
+			else 
+			{
+				strip.setBrightness(254);
+				strip.Halo_PlayAnimation(animation,height,width);
+			}
 		}
 		else
 		{

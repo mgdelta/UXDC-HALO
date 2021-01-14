@@ -701,6 +701,9 @@ void Adafruit_DotStar::Halo_Strip_FadeOut(const uint32_t color, const unsigned i
 		if (fadetime_ms > 0)
 			std::this_thread::sleep_for(std::chrono::milliseconds(fadetime_ms));
 	}
+	// BugFix: When there is no brightness set afterwards, no color will be shown due to brightness 0
+	// Set brightness to old value but this will not be shown directly on the LEDs. Show command is not triggered
+	setBrightness(starting_brightness);
 }
 // TO DO: delete this function, deprecated, tests only
 void Adafruit_DotStar::Halo_setStripColor() {
